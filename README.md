@@ -16,7 +16,7 @@ Clone and build it with `go build` (or download a potentially outdated binary fr
 $ ./ha-linux-sensors -h
 Usage of ./ha-linux-sensors:
   -interval int
-    	Scan interval in seconds (default 10)
+    	Scan interval (for example: 10s)
   -mqttBroker string
     	URI of the MQTT broker, eg. tcp://broker.hivemq.com:1883
   -mqttPassword string
@@ -24,6 +24,8 @@ Usage of ./ha-linux-sensors:
   -mqttUser string
     	Username for the mqtt connection
 ```
+
+All of these arguments can be then followed by a list of files to monitor on linux devtree. Values from each file will be posted onto topic `ha-linux-sensors/<HOSTNAME>/<FILENAME>`.
 
 You can then add the command to your startup tools.
 
