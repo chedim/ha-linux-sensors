@@ -27,6 +27,10 @@ Usage of ./ha-linux-sensors:
 
 All of these arguments can be then followed by a list of files to monitor on linux devtree. Values from each file will be posted onto topic `ha-linux-sensors/<HOSTNAME>/<FILENAME>`.
 
-You can then add the command to your startup tools.
+Example of a full command line:
+
+```bash
+ha-linux-sensors --interval 10s --mqttBroker 127.0.0.1:1883 /sys/bus/iio/devices/iio:device0/in_accel_scale /sys/bus/iio/devices/iio:device0/in_accel_x_raw /sys/bus/iio/devices/iio:device0/in_accel_y_raw /sys/bus/iio/devices/iio:device0/in_accel_z_raw /sys/bus/iio/devices/iio:device1/in_anglvel_x_raw /sys/bus/iio/devices/iio:device1/in_anglvel_y_raw /sys/bus/iio/devices/iio:device1/in_anglvel_z_raw /sys/bus/iio/devices/iio:device2/in_illuminance_raw
+```
 
 At the Home Assistant side, you probably want to create a [MQTT sensor](https://www.home-assistant.io/integrations/binary_sensor.mqtt/).
