@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"os/exec"
@@ -23,6 +24,7 @@ type ClientConfig struct {
 	mqttBroker   string
 	mqttUser     string
 	mqttPassword string
+	devices      []string
 }
 type Client struct {
 	config     *ClientConfig
@@ -58,6 +60,7 @@ func (c *Client) Start() {
 
 	ticker := c.startTicker(func() {
 		c.updateWebcamSensor()
+		c.processDevices()
 	})
 	c.ticker = ticker
 }
@@ -112,6 +115,19 @@ func (c *Client) updateMqttSensor(sensorName, value string) {
 			log.Printf("Error publishing MQTT topic: %s", token.Error())
 		}
 	}()
+}
+
+func (c *Client) processDevices() {
+	for _, device := range c.config.devices {
+		if file, err := os.Open(device); err != nil {
+			fmt.Println("Failed to open device", err)
+		} else if content, err := io.ReadAll(file); err != nil {
+			fmt.Println("Failed to read device", err)
+		} else {
+			fmt.Printf("Device `%s` value: '%s'", device, content)
+			c.updateMqttSensor(file.Name(), string(content))
+		}
+	}
 }
 
 func isWebcamActive() (bool, error) {

@@ -17,7 +17,6 @@ var (
 )
 
 func main() {
-
 	flag.Parse()
 
 	sigs := make(chan os.Signal, 1)
@@ -28,6 +27,7 @@ func main() {
 		mqttBroker:   *mqttBroker,
 		mqttUser:     *mqttUser,
 		mqttPassword: *mqttPassword,
+		devices:      flag.Args(),
 	})
 
 	client.Start()
