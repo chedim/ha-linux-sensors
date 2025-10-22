@@ -119,7 +119,7 @@ func (c *Client) updateMqttSensor(sensorName, value string) {
 }
 
 func (c *Client) processDevices() {
-	for i, device := range c.config.devices {
+	for _, device := range c.config.devices {
 		if file, err := os.Open(device); err != nil {
 			fmt.Println("Failed to open device", err)
 		} else if content, err := io.ReadAll(file); err != nil {
