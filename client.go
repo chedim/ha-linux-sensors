@@ -72,7 +72,7 @@ func (c *Client) Stop() {
 
 func (c *Client) startTicker(f func()) chan bool {
 	done := make(chan bool, 1)
-	go func() {
+	go func(){
 		ticker := time.NewTicker(c.config.scanInterval)
 		defer ticker.Stop()
 		for {

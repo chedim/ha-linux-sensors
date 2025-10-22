@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	scanInterval = flag.Int("interval", 10, "Scan interval in seconds")
+	scanInterval = flag.Duration("interval", 10, "Scan interval in seconds")
 	mqttBroker   = flag.String("mqttBroker", "", "URI of the MQTT broker, eg. tcp://broker.hivemq.com:1883")
 	mqttUser     = flag.String("mqttUser", "", "Username for the mqtt connection")
 	mqttPassword = flag.String("mqttPassword", "", "Password for the mqtt connection")
@@ -23,7 +23,7 @@ func main() {
 	signal.Notify(sigs, os.Interrupt)
 
 	client := NewClient(&ClientConfig{
-		scanInterval: time.Duration(*scanInterval) * time.Second,
+		scanInterval: *scanInterval,
 		mqttBroker:   *mqttBroker,
 		mqttUser:     *mqttUser,
 		mqttPassword: *mqttPassword,
