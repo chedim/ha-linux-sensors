@@ -60,7 +60,6 @@ func (c *Client) Start() {
 	log.Println("Starting routine...")
 
 	ticker := c.startTicker(func() {
-		c.updateWebcamSensor()
 		c.processDevices()
 	})
 	c.ticker = ticker
@@ -72,7 +71,7 @@ func (c *Client) Stop() {
 
 func (c *Client) startTicker(f func()) chan bool {
 	done := make(chan bool, 1)
-	go func(){
+	go func() {
 		ticker := time.NewTicker(c.config.scanInterval)
 		defer ticker.Stop()
 		for {
@@ -87,19 +86,6 @@ func (c *Client) startTicker(f func()) chan bool {
 		}
 	}()
 	return done
-}
-
-func (c *Client) updateWebcamSensor() {
-	webcamActive, err := isWebcamActive()
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	sensorValue := "off"
-	if webcamActive {
-		sensorValue = "on"
-	}
-	c.updateMqttSensor("webcam", sensorValue)
 }
 
 func (c *Client) updateMqttSensor(sensorName, value string) {
