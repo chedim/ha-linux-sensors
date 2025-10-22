@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -125,7 +126,7 @@ func (c *Client) processDevices() {
 			fmt.Println("Failed to read device", err)
 		} else {
 			fmt.Printf("Device `%s` value: '%s'", device, content)
-			c.updateMqttSensor(fmt.Sprintf("sensor_%d", i), string(content))
+			c.updateMqttSensor(filepath.Base(device), string(content))
 		}
 	}
 }
