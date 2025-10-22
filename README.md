@@ -4,7 +4,7 @@ A go program that reads sensor data from Linux machines devtree files and sends 
 
 ### Usage
 
-Clone and build it with `go build` (or download a potentially outdated binary from [here](https://github.com/mammuth/ha-linux-sensors/releases))
+Clone and build it with `go build` or install it from this repository using `go install github.com/cheddim/ha-linux-sensors`
 
 ```
 $ ./ha-linux-sensors -h
