@@ -1,6 +1,6 @@
 # ha-linux-sensors
 
-A go program that reads sensor data from Linux machines devtree files and sends it to an MQTT topic (WIP)
+A go program that reads sensor data from Linux machines devtree files and sends it to MQTT topics.
 
 ### Usage
 
